@@ -1,23 +1,70 @@
-import { ArrowRight, ShieldCheck, Trophy, Wallet, Waves } from "lucide-react";
+import { ArrowRight, BarChart3, ChevronDown, Crown, Gift, Rocket, ShieldCheck, Sparkles, Wallet, Waves } from "lucide-react";
 import { membershipTiers } from "@/features/membership/model/tiers";
 import { previewQuests } from "@/features/airdrop-arena/model/quests";
 
+const features = [
+  { icon: Crown, title: "VIP Cards", description: "Unlock Silver, Gold and Black membership with verified token holdings.", href: "#memberships", detail: "UP TO 2× XP" },
+  { icon: Gift, title: "Airdrop Arena", description: "Complete quests, earn XP and discover upcoming community rewards.", href: "#arena", detail: "SEASON 01" },
+  { icon: Rocket, title: "Launchpad", description: "A space for discovering Solana community projects.", href: "#roadmap", detail: "COMING SOON" },
+  { icon: BarChart3, title: "Your Dashboard", description: "Follow wallet holdings, membership eligibility and rewards.", href: "#roadmap", detail: "IN DEVELOPMENT" },
+];
+
+function WhaleMark({ size = 40 }: { size?: number }) {
+  return <span className="whale-mark" style={{ width: size, height: size }} aria-hidden="true"><Waves size={size * 0.57} strokeWidth={2.5} /></span>;
+}
+
 export default function Home() {
   return (
-    <main className="min-h-screen bg-[#080e1b] text-slate-100">
-      <header className="mx-auto flex max-w-6xl items-center justify-between px-6 py-6">
-        <a href="/" className="flex items-center gap-2 text-xl font-black tracking-tight"><Waves className="text-cyan-400" /> whale.co</a>
-        <nav className="hidden gap-7 text-sm text-slate-400 md:flex"><a href="#features" className="hover:text-white">Features</a><a href="#memberships" className="hover:text-white">Memberships</a><a href="#arena" className="hover:text-white">Airdrop Arena</a></nav>
-        <span className="rounded-full border border-slate-700 px-4 py-2 text-xs text-slate-300">Coming soon</span>
+    <main className="site-shell">
+      <header className="site-header">
+        <div className="container header-inner">
+          <a href="#" className="brand"><WhaleMark /> <span>Whale<span className="brand-dot">.co</span></span></a>
+          <nav aria-label="Main navigation" className="desktop-nav">
+            <a href="#features">Explore</a><a href="#arena">Airdrop Arena</a><a href="#memberships">VIP Cards</a><a href="#roadmap">Launchpad</a><a href="#community">Community <ChevronDown size={14}/></a>
+          </nav>
+          <a href="#roadmap" className="wallet-button"><Wallet size={17} /> Wallet integration soon</a>
+        </div>
       </header>
-      <section className="mx-auto grid max-w-6xl gap-12 px-6 pb-24 pt-24 md:grid-cols-2 md:items-center">
-        <div><p className="mb-5 text-sm font-semibold uppercase tracking-[.24em] text-cyan-400">The Solana community hub</p><h1 className="text-5xl font-black leading-tight tracking-tight md:text-7xl">Make waves.<br /><span className="text-cyan-400">Earn your place.</span></h1><p className="mt-6 max-w-lg text-lg leading-8 text-slate-400">Explore a community-first Solana platform with wallet insights, token-gated memberships and an upcoming quest arena.</p><a href="#features" className="mt-8 inline-flex items-center gap-2 rounded-xl bg-cyan-400 px-6 py-3 font-bold text-slate-950 hover:bg-cyan-300">Explore platform <ArrowRight size={18} /></a></div>
-        <div className="rounded-3xl border border-cyan-500/20 bg-gradient-to-br from-cyan-500/15 via-slate-900 to-indigo-500/15 p-8 shadow-2xl"><div className="mb-10 flex items-center justify-between"><span className="text-sm text-slate-400">MEMBER PREVIEW</span><span className="rounded-full bg-cyan-400/10 px-3 py-1 text-xs text-cyan-300">Season 01 · Planned</span></div><div className="rounded-2xl border border-white/10 bg-slate-950/60 p-6"><p className="text-sm text-slate-400">Your membership</p><p className="mt-3 text-4xl font-black">SILVER</p><p className="mt-2 text-sm text-slate-400">1.0× Arena XP multiplier</p><div className="mt-6 h-2 rounded-full bg-slate-800"><div className="h-full w-1/3 rounded-full bg-cyan-400" /></div></div><p className="mt-5 text-xs text-slate-500">Illustrative UI only. Wallet connection and rewards are not live.</p></div>
+
+      <section className="hero container">
+        <div className="hero-copy">
+          <span className="eyebrow"><span className="solana-glyph">≋</span> THE SOLANA COMMUNITY PLATFORM</span>
+          <h1>Trade. Earn. Participate.<br /><span>Together on Solana.</span></h1>
+          <p>Whale.co is a community-first home for Solana explorers. Track your membership, complete quests and discover new opportunities — all in one place.</p>
+          <div className="hero-actions"><a href="#features" className="button-primary">Explore Features <ArrowRight size={19}/></a><a href="#memberships" className="button-outline">View VIP Cards</a></div>
+          <div className="hero-note"><ShieldCheck size={16}/> Platform preview · No live wallet transactions or rewards</div>
+        </div>
+        <div className="hero-art" aria-label="Decorative bronze Whale.co emblem">
+          <div className="art-glow" /><div className="art-orbit art-orbit-one"/><div className="art-orbit art-orbit-two"/>
+          <div className="emblem"><div className="emblem-inner"><Waves size={106} strokeWidth={1.4}/><span>WHALE.CO</span></div></div>
+          <div className="pedestal"><div className="pedestal-light"/></div>
+        </div>
       </section>
-      <section id="features" className="mx-auto max-w-6xl px-6 py-14"><h2 className="text-3xl font-bold">Built for the community</h2><div className="mt-8 grid gap-4 md:grid-cols-3">{[{icon:Wallet,title:"Wallet Dashboard",desc:"View your connected wallet and platform token holdings."},{icon:ShieldCheck,title:"VIP Memberships",desc:"Unlock member tiers through verified token holdings and admin approval."},{icon:Trophy,title:"Airdrop Arena",desc:"Complete quests, earn XP and track season progress."}].map(({icon:Icon,title,desc})=><article key={title} className="rounded-2xl border border-slate-800 bg-slate-900/50 p-6"><Icon className="mb-5 text-cyan-400" size={28}/><h3 className="text-xl font-bold">{title}</h3><p className="mt-3 text-sm leading-6 text-slate-400">{desc}</p></article>)}</div></section>
-      <section id="memberships" className="mx-auto max-w-6xl px-6 py-14"><h2 className="text-3xl font-bold">Membership tiers</h2><p className="mt-3 text-slate-400">Proposed thresholds and XP bonuses, subject to final rules.</p><div className="mt-8 grid gap-4 md:grid-cols-3">{membershipTiers.map(t=><article key={t.id} className="rounded-2xl border border-slate-800 bg-slate-900/50 p-6"><p className={`text-2xl font-black ${t.accent}`}>{t.name}</p><p className="mt-5 text-4xl font-black">{t.mult}× <span className="text-sm font-normal text-slate-400">XP</span></p><p className="mt-4 text-sm text-slate-400">{t.label}</p></article>)}</div></section>
-      <section id="arena" className="mx-auto max-w-6xl px-6 pb-24 pt-14"><h2 className="text-3xl font-bold">Airdrop Arena</h2><p className="mt-3 text-slate-400">Preview of planned quests. No rewards are currently distributed.</p><div className="mt-8 grid gap-3">{previewQuests.map(q=><div key={q.title} className="flex items-center justify-between rounded-xl border border-slate-800 bg-slate-900/50 px-5 py-4"><div><p className="font-semibold">{q.title}</p><p className="text-xs text-slate-500">{q.category}</p></div><span className="font-bold text-cyan-400">+{q.xp} XP</span></div>)}</div></section>
-      <footer className="border-t border-slate-800 px-6 py-8 text-center text-sm text-slate-500">© {new Date().getFullYear()} Whale.co · Early development · No financial guarantees</footer>
+
+      <section className="container"><div className="status-strip">
+        <div><Sparkles/><span><small>PLATFORM STATUS</small><strong>Early access preview</strong></span></div>
+        <div><Crown/><span><small>MEMBERSHIP TIERS</small><strong>Silver · Gold · Black</strong></span></div>
+        <div><Gift/><span><small>ARENA REWARDS</small><strong>XP system planned</strong></span></div>
+        <div><ShieldCheck/><span><small>BLOCKCHAIN</small><strong>Solana integration planned</strong></span></div>
+      </div></section>
+
+      <section id="features" className="container content-section">
+        <div className="section-heading"><div><span className="section-kicker">EXPLORE THE ECOSYSTEM</span><h2>Everything in one place.</h2></div><p>Built around community, transparency and meaningful participation.</p></div>
+        <div className="feature-grid">{features.map(({icon:Icon,title,description,href,detail})=><a className="feature-card" key={title} href={href}><div className="feature-top"><Icon size={30}/><span>{detail}</span></div><h3>{title}</h3><p>{description}</p><span className="feature-arrow"><ArrowRight size={18}/></span></a>)}</div>
+      </section>
+
+      <section id="memberships" className="container content-section">
+        <div className="section-heading"><div><span className="section-kicker">MEMBERSHIP</span><h2>Find your tier.</h2></div><p>Proposed holding thresholds. Eligibility and approvals will be verified server-side.</p></div>
+        <div className="tier-grid">{membershipTiers.map(t=><div className={`tier-card tier-${t.id}`} key={t.id}><div className="tier-top"><Crown size={25}/><span>{t.name.toUpperCase()}</span></div><strong>{t.mult}× <small>XP multiplier</small></strong><p>{t.label}</p><div className="tier-footer">Membership preview <ArrowRight size={16}/></div></div>)}</div>
+      </section>
+
+      <section id="arena" className="container content-section">
+        <div className="section-heading"><div><span className="section-kicker">QUESTS & REWARDS</span><h2>Enter the Airdrop Arena.</h2></div><p>Complete community tasks to earn points. Token distributions are not active.</p></div>
+        <div className="quest-panel">{previewQuests.map(q=><div className="quest" key={q.title}><div className="quest-icon"><Gift size={19}/></div><div><strong>{q.title}</strong><small>{q.category}</small></div><span>+{q.xp} XP</span></div>)}</div>
+      </section>
+
+      <section id="roadmap" className="container roadmap"><Rocket size={24}/><div><h2>We're building the next chapter.</h2><p>Wallet sign-in, verified token balances, VIP requests and the Airdrop Arena are on our roadmap. This page is a working design foundation, not a live trading service.</p></div></section>
+      <footer id="community" className="footer"><div className="container footer-inner"><a href="#" className="brand"><WhaleMark size={30}/> Whale.co</a><span>© {new Date().getFullYear()} Whale.co · Built for Solana communities</span><a href="https://github.com/GotUrBack-Public/whale.co" target="_blank" rel="noreferrer">Open source ↗</a></div></footer>
     </main>
   );
 }
