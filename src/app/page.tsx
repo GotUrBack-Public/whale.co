@@ -1,70 +1,32 @@
-import { ArrowRight, BarChart3, ChevronDown, Crown, Gift, Rocket, ShieldCheck, Sparkles, Wallet, Waves } from "lucide-react";
+import Image from "next/image";
+import { ArrowRight, ArrowUpRight, CheckCircle2, ChevronRight, CircleHelp, Crown, Gift, LockKeyhole, Rocket, ShieldCheck, Sparkles, Wallet, Waves } from "lucide-react";
 import { membershipTiers } from "@/features/membership/model/tiers";
 import { previewQuests } from "@/features/airdrop-arena/model/quests";
 
-const features = [
-  { icon: Crown, title: "VIP Cards", description: "Unlock Silver, Gold and Black membership with verified token holdings.", href: "#memberships", detail: "UP TO 2× XP" },
-  { icon: Gift, title: "Airdrop Arena", description: "Complete quests, earn XP and discover upcoming community rewards.", href: "#arena", detail: "SEASON 01" },
-  { icon: Rocket, title: "Launchpad", description: "A space for discovering Solana community projects.", href: "#roadmap", detail: "COMING SOON" },
-  { icon: BarChart3, title: "Your Dashboard", description: "Follow wallet holdings, membership eligibility and rewards.", href: "#roadmap", detail: "IN DEVELOPMENT" },
+const cards = [
+  { title: "Silver", image: "/assets/cards/vip-silver.png", tag: "EVERYONE", description: "Your entry to the Whale.co community.", tone: "silver" },
+  { title: "Gold", image: "/assets/cards/vip-gold.png", tag: "PREMIUM", description: "Level up your community experience.", tone: "gold" },
+  { title: "Black", image: "/assets/cards/vip-black.png", tag: "EXCLUSIVE", description: "The highest Whale.co membership tier.", tone: "black" },
 ];
 
-function WhaleMark({ size = 40 }: { size?: number }) {
-  return <span className="whale-mark" style={{ width: size, height: size }} aria-hidden="true"><Waves size={size * 0.57} strokeWidth={2.5} /></span>;
+function Brand() {
+  return <a href="/" className="brand" aria-label="Whale.co home"><span className="brand-icon"><Waves size={23} strokeWidth={2.5}/></span><span>Whale<span className="brand-accent">.co</span></span></a>;
+}
+
+function SectionTitle({ eyebrow, title, subtitle }: { eyebrow: string; title: string; subtitle: string }) {
+  return <div className="section-title"><div><span className="kicker"><span className="kicker-line"/> {eyebrow}</span><h2>{title}</h2></div><p>{subtitle}</p></div>;
 }
 
 export default function Home() {
-  return (
-    <main className="site-shell">
-      <header className="site-header">
-        <div className="container header-inner">
-          <a href="#" className="brand"><WhaleMark /> <span>Whale<span className="brand-dot">.co</span></span></a>
-          <nav aria-label="Main navigation" className="desktop-nav">
-            <a href="#features">Explore</a><a href="#arena">Airdrop Arena</a><a href="#memberships">VIP Cards</a><a href="#roadmap">Launchpad</a><a href="#community">Community <ChevronDown size={14}/></a>
-          </nav>
-          <a href="#roadmap" className="wallet-button"><Wallet size={17} /> Wallet integration soon</a>
-        </div>
-      </header>
-
-      <section className="hero container">
-        <div className="hero-copy">
-          <span className="eyebrow"><span className="solana-glyph">≋</span> THE SOLANA COMMUNITY PLATFORM</span>
-          <h1>Trade. Earn. Participate.<br /><span>Together on Solana.</span></h1>
-          <p>Whale.co is a community-first home for Solana explorers. Track your membership, complete quests and discover new opportunities — all in one place.</p>
-          <div className="hero-actions"><a href="#features" className="button-primary">Explore Features <ArrowRight size={19}/></a><a href="#memberships" className="button-outline">View VIP Cards</a></div>
-          <div className="hero-note"><ShieldCheck size={16}/> Platform preview · No live wallet transactions or rewards</div>
-        </div>
-        <div className="hero-art" aria-label="Decorative bronze Whale.co emblem">
-          <div className="art-glow" /><div className="art-orbit art-orbit-one"/><div className="art-orbit art-orbit-two"/>
-          <div className="emblem"><div className="emblem-inner"><Waves size={106} strokeWidth={1.4}/><span>WHALE.CO</span></div></div>
-          <div className="pedestal"><div className="pedestal-light"/></div>
-        </div>
-      </section>
-
-      <section className="container"><div className="status-strip">
-        <div><Sparkles/><span><small>PLATFORM STATUS</small><strong>Early access preview</strong></span></div>
-        <div><Crown/><span><small>MEMBERSHIP TIERS</small><strong>Silver · Gold · Black</strong></span></div>
-        <div><Gift/><span><small>ARENA REWARDS</small><strong>XP system planned</strong></span></div>
-        <div><ShieldCheck/><span><small>BLOCKCHAIN</small><strong>Solana integration planned</strong></span></div>
-      </div></section>
-
-      <section id="features" className="container content-section">
-        <div className="section-heading"><div><span className="section-kicker">EXPLORE THE ECOSYSTEM</span><h2>Everything in one place.</h2></div><p>Built around community, transparency and meaningful participation.</p></div>
-        <div className="feature-grid">{features.map(({icon:Icon,title,description,href,detail})=><a className="feature-card" key={title} href={href}><div className="feature-top"><Icon size={30}/><span>{detail}</span></div><h3>{title}</h3><p>{description}</p><span className="feature-arrow"><ArrowRight size={18}/></span></a>)}</div>
-      </section>
-
-      <section id="memberships" className="container content-section">
-        <div className="section-heading"><div><span className="section-kicker">MEMBERSHIP</span><h2>Find your tier.</h2></div><p>Proposed holding thresholds. Eligibility and approvals will be verified server-side.</p></div>
-        <div className="tier-grid">{membershipTiers.map(t=><div className={`tier-card tier-${t.id}`} key={t.id}><div className="tier-top"><Crown size={25}/><span>{t.name.toUpperCase()}</span></div><strong>{t.mult}× <small>XP multiplier</small></strong><p>{t.label}</p><div className="tier-footer">Membership preview <ArrowRight size={16}/></div></div>)}</div>
-      </section>
-
-      <section id="arena" className="container content-section">
-        <div className="section-heading"><div><span className="section-kicker">QUESTS & REWARDS</span><h2>Enter the Airdrop Arena.</h2></div><p>Complete community tasks to earn points. Token distributions are not active.</p></div>
-        <div className="quest-panel">{previewQuests.map(q=><div className="quest" key={q.title}><div className="quest-icon"><Gift size={19}/></div><div><strong>{q.title}</strong><small>{q.category}</small></div><span>+{q.xp} XP</span></div>)}</div>
-      </section>
-
-      <section id="roadmap" className="container roadmap"><Rocket size={24}/><div><h2>We're building the next chapter.</h2><p>Wallet sign-in, verified token balances, VIP requests and the Airdrop Arena are on our roadmap. This page is a working design foundation, not a live trading service.</p></div></section>
-      <footer id="community" className="footer"><div className="container footer-inner"><a href="#" className="brand"><WhaleMark size={30}/> Whale.co</a><span>© {new Date().getFullYear()} Whale.co · Built for Solana communities</span><a href="https://github.com/GotUrBack-Public/whale.co" target="_blank" rel="noreferrer">Open source ↗</a></div></footer>
-    </main>
-  );
+  return <main className="site">
+    <header className="topbar"><div className="container topbar-inner"><Brand/><nav className="nav" aria-label="Main navigation"><a href="#ecosystem">Ecosystem</a><a href="#memberships">VIP Cards</a><a href="#arena">Airdrop Arena</a><a href="#launchpad">Launchpad</a></nav><a className="nav-cta" href="#wallet"><Wallet size={17}/> Wallet preview <ArrowUpRight size={14}/></a></div></header>
+    <section className="hero"><div className="hero-background" aria-hidden="true"/><div className="hero-overlay"/><div className="container hero-layout"><div className="hero-content"><div className="hero-pill"><span className="pulse-dot"/> THE NEXT WAVE ON SOLANA <Sparkles size={14}/></div><h1>One ecosystem.<br/><span>Endless possibilities.</span></h1><p>Discover a new home for the Solana community. Unlock VIP status, take on quests and explore what comes next with Whale.co.</p><div className="hero-buttons"><a href="#ecosystem" className="primary-btn">Explore the ecosystem <ArrowRight size={18}/></a><a href="#memberships" className="secondary-btn">Discover VIP Cards <ChevronRight size={18}/></a></div><div className="hero-trust"><ShieldCheck size={17}/><span>Community-first</span><i/><LockKeyhole size={17}/><span>Non-custodial vision</span></div></div><div className="hero-right"><div className="hero-floating-label"><span>WHALE.CO</span><strong>THE COMMUNITY<br/>IS THE FUTURE.</strong><span className="hero-label-line"/></div></div></div></section>
+    <div className="container"><div className="info-strip"><div><span className="info-icon"><Waves size={22}/></span><div><small>NETWORK</small><strong>Built for Solana</strong></div></div><div><span className="info-icon"><Crown size={22}/></span><div><small>VIP PROGRAM</small><strong>3 membership tiers</strong></div></div><div><span className="info-icon"><Gift size={22}/></span><div><small>QUEST SYSTEM</small><strong>XP & rewards planned</strong></div></div><div><span className="info-icon"><ShieldCheck size={22}/></span><div><small>PLATFORM</small><strong>In development</strong></div></div></div></div>
+    <section id="ecosystem" className="container section"><SectionTitle eyebrow="THE WHALE ECOSYSTEM" title="Your world. Your wave." subtitle="Everything we're building for the next generation of Solana communities."/><div className="ecosystem-grid"><a href="#memberships" className="ecosystem-card eco-vip"><div className="eco-copy"><span className="eco-index">01 / MEMBERSHIP</span><h3>VIP Cards</h3><p>Unlock new levels of community access.</p><span className="eco-link">Explore membership <ArrowUpRight size={17}/></span></div><div className="eco-image"><Image src="/assets/cards/vip-gold.png" alt="Whale.co Gold VIP membership card" fill sizes="(max-width: 800px) 100vw, 460px" className="object-cover" unoptimized/></div></a><a href="#arena" className="ecosystem-card eco-arena"><div className="eco-copy"><span className="eco-index">02 / QUESTS</span><h3>Airdrop Arena</h3><p>Complete challenges. Grow your XP.</p><span className="eco-link">Enter the arena <ArrowUpRight size={17}/></span></div><div className="eco-image"><Image src="/assets/images/airdrop-arena.png" alt="Whale.co Airdrop Arena concept artwork" fill sizes="(max-width: 800px) 100vw, 460px" className="object-cover" unoptimized/></div></a><a href="#launchpad" className="ecosystem-card eco-launch"><div className="eco-copy"><span className="eco-index">03 / DISCOVERY</span><h3>Launchpad</h3><p>Discover the projects of tomorrow.</p><span className="eco-link">View roadmap <ArrowUpRight size={17}/></span></div><div className="eco-image"><Image src="/assets/images/launchpad.png" alt="Whale.co Launchpad concept artwork" fill sizes="(max-width: 800px) 100vw, 460px" className="object-cover" unoptimized/></div></a><a href="#wallet" className="ecosystem-card eco-wallet"><div className="eco-copy"><span className="eco-index">04 / YOUR SPACE</span><h3>Dashboard</h3><p>Your tokens, membership and progress.</p><span className="eco-link">See the vision <ArrowUpRight size={17}/></span></div><div className="eco-image"><Image src="/assets/images/wallet-dashboard.png" alt="Whale.co wallet dashboard concept artwork with illustrative balances" fill sizes="(max-width: 800px) 100vw, 460px" className="object-cover" unoptimized/></div></a></div></section>
+    <section id="memberships" className="membership-wrap"><div className="container section"><SectionTitle eyebrow="MORE THAN A MEMBERSHIP" title="Choose your status." subtitle="Three tiers. One community. Unlock a new level of participation as the platform develops."/><div className="membership-grid">{cards.map((card,i)=><article className={`membership-card membership-${card.tone}`} key={card.title}><div className="membership-image"><Image src={card.image} alt={`Whale.co ${card.title} VIP card`} fill sizes="(max-width: 800px) 100vw, 400px" className="object-cover" unoptimized/></div><div className="membership-content"><div className="membership-heading"><h3>{card.title}</h3><span>{card.tag}</span></div><p>{card.description}</p><div className="membership-metrics"><div><small>XP MULTIPLIER</small><strong>{membershipTiers[i].multiplier}×</strong></div><div><small>PLANNED HOLDING</small><strong>{membershipTiers[i].minimumEur===0?"Free":`€${membershipTiers[i].minimumEur.toLocaleString("en-US")}`}</strong></div></div><div className="membership-bottom"><span><CheckCircle2 size={15}/> Planned tier</span><ArrowUpRight size={19}/></div></div></article>)}</div><p className="section-disclaimer"><CircleHelp size={15}/> Membership thresholds are proposed and subject to verification, approval and final platform rules. No membership purchases are available.</p></div></section>
+    <section id="arena" className="container section arena-section"><div className="arena-visual"><Image src="/assets/images/airdrop-arena.png" alt="Airdrop Arena concept: Whale.co rewards" fill sizes="(max-width: 800px) 100vw, 620px" className="object-cover" unoptimized/><span className="visual-tag">COMING SOON</span></div><div className="arena-copy"><span className="kicker"><span className="kicker-line"/> AIRDROP ARENA</span><h2>Every quest<br/><em>starts a new wave.</em></h2><p>Take part in community challenges, build XP and climb the leaderboard when the Arena launches.</p><div className="quest-list">{previewQuests.map(q=><div key={q.title} className="quest-row"><span className="quest-symbol"><Gift size={17}/></span><div><strong>{q.title}</strong><small>{q.category}</small></div><b>+{q.xp} XP</b></div>)}</div><span className="subtle-note">Quest examples only. XP and token rewards are not live.</span></div></section>
+    <section id="launchpad" className="container section"><div className="launch-banner"><div className="launch-copy"><span className="kicker"><span className="kicker-line"/> THE FUTURE IS BUILDING</span><h2>Discover what's next.</h2><p>A dedicated home for future Solana project discovery. The Whale.co Launchpad is on our roadmap.</p><span className="coming-pill"><Rocket size={16}/> Launchpad coming soon</span></div><div className="launch-art"><Image src="/assets/images/launchpad.png" alt="Whale.co Launchpad artwork" fill sizes="(max-width: 800px) 100vw, 600px" className="object-cover" unoptimized/></div></div></section>
+    <section id="wallet" className="container section wallet-section"><div><span className="kicker"><span className="kicker-line"/> YOUR PERSONAL HUB</span><h2>Everything in your hands.</h2><p>Our planned dashboard will bring your connected Solana wallet, token holdings and membership progress together in one place.</p><div className="wallet-features"><span><CheckCircle2 size={17}/> Wallet connection</span><span><CheckCircle2 size={17}/> Token balance tracking</span><span><CheckCircle2 size={17}/> VIP eligibility</span></div><div className="preview-note"><LockKeyhole size={16}/> Wallet functionality is not yet enabled.</div></div><div className="wallet-preview"><Image src="/assets/images/wallet-dashboard.png" alt="Illustrative Whale.co wallet dashboard preview, not real account balances" fill sizes="(max-width: 800px) 100vw, 620px" className="object-cover" unoptimized/></div></section>
+    <footer className="footer"><div className="container footer-top"><div><Brand/><p>Building a new wave of Solana community experiences.</p></div><div className="footer-links"><a href="#ecosystem">Ecosystem</a><a href="#memberships">VIP Cards</a><a href="#arena">Airdrop Arena</a><a href="https://github.com/GotUrBack-Public/whale.co" target="_blank" rel="noreferrer">GitHub <ArrowUpRight size={14}/></a></div></div><div className="container footer-bottom"><span>© {new Date().getFullYear()} Whale.co. All rights reserved.</span><span>Early-stage preview · Not a trading or investment service</span></div></footer>
+  </main>;
 }
