@@ -14,11 +14,11 @@ jobs:
         with:
           node-version: "22"
       - name: List uploaded website assets
-        run: |
-          echo "Files in public/assets:"
-          find public/assets -type f | sort
+        run: find public/assets -type f | sort
       - name: Install dependencies
-        run: npm install --no-audit --no-fund
+        run: npm ci --no-audit --no-fund
+      - name: Membership boundary tests
+        run: npm test
       - name: Typecheck
         run: npm run typecheck
       - name: Production build
