@@ -5,6 +5,7 @@ const isGitHubPages = process.env.GITHUB_PAGES === "true";
 const nextConfig: NextConfig = {
   ...(isGitHubPages ? { output: "export" as const, basePath: "/whale.co", trailingSlash: true } : {}),
   images: { unoptimized: true },
+  env: { NEXT_PUBLIC_ASSET_PREFIX: isGitHubPages ? "/whale.co" : "" },
 };
 
 export default nextConfig;
