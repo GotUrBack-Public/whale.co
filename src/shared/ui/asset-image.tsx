@@ -49,5 +49,5 @@ export function AssetImage({ src, alt, fill, sizes, className, unoptimized }: As
   if (!resolved) {
     return <div role="img" aria-label={alt} className={`asset-fallback ${className ?? ""}`}><span>WHALE.CO</span></div>;
   }
-  return <Image src={resolved} alt={alt} fill={fill} sizes={sizes} className={className} unoptimized={unoptimized} />;
+  return <Image src={process.env.GITHUB_PAGES === "true" ? `/whale.co${resolved}` : resolved} alt={alt} fill={fill} sizes={sizes} className={className} unoptimized={unoptimized} />;
 }
